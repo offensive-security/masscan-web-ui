@@ -27,8 +27,7 @@ Enter password:
 root@kali:/var/www/html# rm db-structure.sql index.html
 ```
 
-
-Update the config file:
+Update the web config file:
 
 ```
 nano includes/config.php
@@ -40,8 +39,11 @@ define('DB_PASSWORD',   'changem3');
 define('DB_DATABASE',   'masscan');
 ```
 
-Now you can use masscan to scan your targets, while specifying an XML output:
+Now you can use masscan to scan your targets, while specifying an XML output. More information about banner grabbing with masscan can be found at [[here|https://github.com/robertdavidgraham/masscan#banner-checking]].
 
+```
+masscan 10.0.0.0/8 -p80,21,53 --banners --source-ip 10.0.0.2 --max-rate 1000000 -oX scan-01.xml
+```
 
 
 Now let's import some scan results. In this example we imported the results of two class A scans:
