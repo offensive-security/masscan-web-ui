@@ -1,12 +1,20 @@
 # masscan-web-ui
 MASSCAN Web UI
 
+Here's a quick guide to get started until we made some better documentation:
+
+* Install and setup your web server, copy over the MASSCAN web ui files:
+
 ```
 root@kali:~# apt-get install apache2 php5 php5-mysql
 root@kali:~# git clone https://github.com/offensive-security/masscan-web-ui
 root@kali:~# mv masscan-web-ui/* /var/www/html/
 root@kali:~# cd /var/www/html/
+```
 
+* Create a database, user, then import database.
+
+```
 root@kali:/var/www/html# mysql -u root -p
 Enter password: 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
@@ -24,10 +32,10 @@ mysql> exit
 Bye
 root@kali:/var/www/html# mysql -u root -p masscan < db-structure.sql 
 Enter password: 
-root@kali:/var/www/html# rm db-structure.sql index.html
+root@kali:/var/www/html# rm db-structure.sql index.html README.md
 ```
 
-Update the web config file:
+Update the web config file with the mysql user and database information:
 
 ```
 nano includes/config.php
@@ -44,7 +52,6 @@ Now you can use masscan to scan your targets, while specifying an XML output. Mo
 ```
 masscan 10.0.0.0/8 -p80,21,53 --banners --source-ip 10.0.0.2 --max-rate 1000000 -oX scan-01.xml
 ```
-
 
 Now let's import some scan results. In this example we imported the results of two class A scans:
 
@@ -78,3 +85,4 @@ Inserted records:2411974
 Took about:9 minutes,41 seconds
 root@kali:/var/www/html# 
 ```
+A total of more than 3 million results are now easily searchable. 
