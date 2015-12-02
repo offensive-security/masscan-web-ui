@@ -39,7 +39,7 @@ define('DB_PASSWORD',   'changem3');
 define('DB_DATABASE',   'masscan');
 ```
 
-Now you can use masscan to scan your targets, while specifying an XML output. More information about banner grabbing with masscan can be found at [[here|https://github.com/robertdavidgraham/masscan#banner-checking]].
+Now you can use masscan to scan your targets, while specifying an XML output. More information about banner grabbing with masscan can be found at https://github.com/robertdavidgraham/masscan#banner-checking.
 
 ```
 masscan 10.0.0.0/8 -p80,21,53 --banners --source-ip 10.0.0.2 --max-rate 1000000 -oX scan-01.xml
