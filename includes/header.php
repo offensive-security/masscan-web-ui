@@ -25,7 +25,7 @@
       <div class="navbar-inner">
          <div class="container-fluid d1280">
             <!-- BEGIN LOGO -->
-             <a href="/index.php"><img src="/assets/img/offsec.png"/></a>
+             <a href="https://www.offensive-security.com"><img src="/assets/img/offsec.png"/></a>
             <!-- END LOGO -->
              <ul  class="nav navbar-nav pull-right">
                  <li>
