@@ -1,7 +1,7 @@
 <?php 
 	$pager_data = "action=search&rec_per_page=".(int) $filter['rec_per_page']."&ip=".htmlentities($filter['ip'])."&port=".(int) $filter['port']."&state=".htmlentities($filter['state'])."&protocol=".htmlentities($filter['protocol'])."&service=".htmlentities($filter['service'])."&banner=".htmlentities($filter['banner'])."&text=".htmlentities($filter['text'])."&exact-match=".$filter['exact-match']."&page=";
 	$rpp_data	= "action=search&ip=".htmlentities($filter['ip'])."&port=".(int) $filter['port']."&state=".htmlentities($filter['state'])."&protocol=".htmlentities($filter['protocol'])."&service=".htmlentities($filter['service'])."&banner=".htmlentities($filter['banner'])."&text=".htmlentities($filter['text'])."&exact-match=".$filter['exact-match']."&page=1&rec_per_page=";
-	$data_prev	= "action=search&rec_per_page=".(int) $filter['rec_per_page']."&ip=".htmlentities($filter['ip'])."&port=".(int) $filter['port']."&state=".htmlentities($filter['state'])."&protocol=".htmlentities($filter['protocol'])."&service=".htmlentities($filter['service'])."&banner=".htmlentities($filter['banner'])."&text=".htmlentities($filter['text'])."&&exact-match=".$filter['exact-match']."page=".($results['pagination']['page']-1);
+	$data_prev	= "action=search&rec_per_page=".(int) $filter['rec_per_page']."&ip=".htmlentities($filter['ip'])."&port=".(int) $filter['port']."&state=".htmlentities($filter['state'])."&protocol=".htmlentities($filter['protocol'])."&service=".htmlentities($filter['service'])."&banner=".htmlentities($filter['banner'])."&text=".htmlentities($filter['text'])."&exact-match=".$filter['exact-match']."&page=".($results['pagination']['page']-1);
 	$data_next	= "action=search&rec_per_page=".(int) $filter['rec_per_page']."&ip=".htmlentities($filter['ip'])."&port=".(int) $filter['port']."&state=".htmlentities($filter['state'])."&protocol=".htmlentities($filter['protocol'])."&service=".htmlentities($filter['service'])."&banner=".htmlentities($filter['banner'])."&text=".htmlentities($filter['text'])."&exact-match=".$filter['exact-match']."&page=".($results['pagination']['page']+1);
 	$data_search= "action=search&rec_per_page=".(int) $filter['rec_per_page']."&ip=".htmlentities($filter['ip'])."&port=".(int) $filter['port']."&state=".htmlentities($filter['state'])."&protocol=".htmlentities($filter['protocol'])."&service=".htmlentities($filter['service'])."&page=1&banner=".htmlentities($filter['banner'])."&exact-match=".$filter['exact-match']."&text=";
 ?>
@@ -67,41 +67,30 @@
 		   ?>
 		   </tbody>
 		</table>
-                        
+
 		<div class="row-fluid">
-			<div class="span6">
-				<div id="sample_1_info" class="dataTables_info">Showing <?php echo ++$results['pagination']['from'];?> to <?php echo $results['pagination']['to'];?></div>
-			</div>
-			<div class="span6">
-				<div class="dataTables_paginate paging_bootstrap pagination">
-					<ul>
-						<?php if ($results['pagination']['page'] > 1 && $results['pagination']['next']): ?>
-							<li class="prev">
-								<a href="javascript:void(0);" onclick="searchData('<?php echo $data_prev; ?>');">← Prev</a>
-							</li>
-						<?php endif; ?>
-
-						<?php if ($results['pagination']['page'] > 0 && $results['pagination']['next']): ?>
-							<?php for ($i=1; $i<=$results['pagination']['page']; $i++):?>
-								<?php if (($results['pagination']['page']-3) < $i):?>
-								<li class="<?php if ($results['pagination']['page'] == $i): echo "active"; endif;?>">
-									<a href="javascript:void(0);" onclick="searchData('<?php echo $pager_data.$i; ?>');"><?php echo (int) $i;?></a>
-								</li>
-								<?php endif; ?>
-							<?php endfor; ?>
-						<?php endif; ?>
-
-						<?php if ($results['pagination']['next']): ?>
-							<li>
-								<a href="javascript:void(0);" onclick="searchData('<?php echo $pager_data.$i; ?>');"><?php echo (int) ++$results['pagination']['page'];?></a>
-							</li>
-							<li class="next<?php if ($results['pagination']['page'] == $results['pagination']['pages']): echo " disabled"; endif; ?>">
-								<a href="javascript:void(0);" onclick="searchData('<?php echo $data_next; ?>');">Next →</a>
-							</li>
-						<?php endif; ?>
-					</ul>
-				</div>
-			</div>
-		</div> <!-- end of .row-fluid -->
+			                        		<div class="span6">
+				                        			<div id="sample_1_info" class="dataTables_info">Showing <?php echo $results['pagination']['from'];?> to <?php echo $results['pagination']['to'];?> of <?php echo $results['pagination']['records'];?> entries</div>
+				                        		</div>
+			                        		<div class="span6">
+				                        			<div class="dataTables_paginate paging_bootstrap pagination">
+														                        				<ul>
+						                        					<li class="prev<?php if ($results['pagination']['page'] == 1): echo " disabled"; endif; ?>">
+							                        						<a href="javascript:void(0);" onclick="searchData('<?php echo $data_prev; ?>');">← Prev</a>
+							                        					</li>
+						                        					<?php for ($i=1; $i<=$results['pagination']['pages']; $i++):?>
+							                        						<?php if ( (($results['pagination']['page']-3) < $i) && (($results['pagination']['page']+3) > $i)):?>
+								                        						<li class="<?php if ($results['pagination']['page'] == $i): echo "active"; endif;?>">
+									                        							<a href="javascript:void(0);" onclick="searchData('<?php echo $pager_data.$i; ?>');"><?php echo (int) $i;?></a>
+									                        						</li>
+								                        						<?php endif; ?>
+							                        					<?php endfor; ?>
+						                        					<li class="next<?php if ($results['pagination']['page'] == $results['pagination']['pages']): echo " disabled"; endif; ?>">
+							                        						<a href="javascript:void(0);" onclick="searchData('<?php echo $data_next; ?>');">Next →</a>
+							                        					</li>
+						                        				</ul>
+					                        			</div>
+				                        		</div>
+			                        	</div>
 	</div> <!-- end of #sample_1_wrapper -->
 </div> <!-- end of .widget-body -->

@@ -1,22 +1,22 @@
 <?php
 $start_ts = time();
 require dirname(__FILE__).'/includes/config.php';
-if (!isset($argv[1])) {
+if (!isset($argv[1])):
 	die('Please provide a file name to import!'."\n");
-}
+endif;
 $tmp = pathinfo($argv[1]);
-if ($tmp['dirname'] == ".") {
+if ($tmp['dirname'] == "."):
 	$filepath = dirname(__FILE__).'/'.$argv[1];
-} else {
+else:
 	$filepath = $argv[1];
-}
-if (!is_file($filepath)) {
+endif;
+if (!is_file($filepath)):
 	echo "File:".$filepath;
 	echo PHP_EOL;
 	echo 'File does not exist!';
     echo PHP_EOL;
 	exit;
-} 
+endif;
 do {
 	echo PHP_EOL;
 	echo "Do you want to clear the database before importing (yes/no)?: ";
@@ -24,7 +24,7 @@ do {
 	$input = fgets($handle);
 } while (!in_array(trim($input), array('yes', 'no')));
 
-if (trim(strtolower($input)) == 'yes') {
+if (trim(strtolower($input)) == 'yes'):
 	echo PHP_EOL;
 	echo "Clearing the db";
 	echo PHP_EOL;
@@ -32,33 +32,31 @@ if (trim(strtolower($input)) == 'yes') {
 	DB::query($q);
 	$q = "TRUNCATE TABLE ports";
 	DB::query($q);
-}
+endif;
 echo "Reading file";
 echo PHP_EOL;
 $content =  utf8_encode(file_get_contents($filepath));
 echo "Parsing file";
 echo PHP_EOL;
 $xml = simplexml_load_string($content, 'SimpleXMLElement', LIBXML_COMPACT | LIBXML_PARSEHUGE);
-if ($xml === false) {
+if ($xml === false):
     die('There is a problem with this xml file?!');
-}
+endif;
 $total		= 0;
 $inserted	= 0;
 echo "Processing data (This may take some time depending on file size)";
 echo PHP_EOL;
-foreach ($xml->host as $host)
-{
+foreach ($xml->host as $host):
     $q = "SELECT host_id FROM hosts WHERE ip = '".DB::escape((string) $host->address['addr'])."'" ;
 	$tmp = DB::fetch($q);
-	if (isset($tmp['host_id']) && (int) $tmp['host_id'] > 0) {
+	if (isset($tmp['host_id']) && (int) $tmp['host_id'] > 0):
 		$host_id = (int) $tmp['host_id']; 
-	} else {
+	else:
 		$q = "INSERT INTO hosts SET host_id = null, ip = '".DB::escape((string) $host->address['addr'])."'";
 		$tmp = DB::query($q);
 		$host_id = DB::insertId();
-	}
-	foreach ($host->ports as $p)
-	{
+	endif;
+	foreach ($host->ports as $p):
         $total++;
 		$ts = (int) $host['endtime'];
 		$scanned_ts = date("Y-m-d H:i:s", $ts);
@@ -106,8 +104,8 @@ foreach ($xml->host as $host)
                 ";
         DB::execute($q);
         $inserted++;
-	}
-}
+	endforeach;
+endforeach;
 $end_ts = time();
 echo PHP_EOL;
 echo "Summary:";
