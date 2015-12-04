@@ -70,7 +70,7 @@ function showIpHistory(ip, el, host_id)
 
 function exportResultsToXML(data)
 {
-	var url='/export.php?'+ data;
+    var url='/export.php?'+ data;
 	var _iframe_dl = $('<iframe />')
 	       .attr('src', url)
 	       .hide()
