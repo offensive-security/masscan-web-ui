@@ -13,8 +13,8 @@ error_reporting(E_ALL);
 /**
  * Database related configuration
  */
-define('DB_DRIVER',		'MySQL');
-define('DB_HOST',		'localhost');
+define('DB_DRIVER',	'MySQL');
+define('DB_HOST',	'localhost');
 define('DB_USERNAME',	'masscan');
 define('DB_PASSWORD', 	'changem3');
 define('DB_DATABASE', 	'masscan');
