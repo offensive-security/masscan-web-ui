@@ -1,7 +1,43 @@
 <?php
+/**
+ * This script is only runnable form command line
+ */
 if (substr(php_sapi_name(), 0, 3) != 'cli'):
     die('This script can only be run from command line!');
 endif;
+/**
+ * Convert seconds to minutes, hours..
+ * NOTICE : Approximate, assumes months have 30 days.
+ */
+function seconds2human($ss)
+{
+    $s = $ss%60;
+    $mins = floor(($ss%3600)/60);
+    $hours = floor(($ss%86400)/3600);
+    $days = floor(($ss%2592000)/86400);
+    $months = floor($ss/2592000);
+    $text = '';
+    if ($months > 0) {
+        $text .= $months." months,";
+    }
+    if ($days > 0) {
+        $text .= $days." days,";
+    }
+    if ($hours > 0) {
+        $text .= $hours." hours,";
+    }
+    if ($mins > 0) {
+        $text .= $mins." minutes,";
+    }
+    if ($s > 0) {
+        $text .= $s." seconds";
+    }
+    return $text;
+}
+
+/**
+ * Magic starts here
+ */
 $start_ts = time();
 require dirname(__FILE__).'/includes/config.php';
 if (!isset($argv[1])):

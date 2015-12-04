@@ -1,4 +1,14 @@
 <?php
+/**
+ * Some common functions
+ */
+function pre_var_dump($var)
+{
+    echo "<pre>";
+    var_dump($var);
+    echo "</pre>";
+}
+
 function browse($filter, $export = false)
 {
     $records_per_page = (int)$filter['rec_per_page'];
