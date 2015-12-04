@@ -1,4 +1,7 @@
 <?php
+if (substr(php_sapi_name(), 0, 3) != 'cli'):
+    die('This script can only be run from command line!');
+endif;
 $start_ts = time();
 require dirname(__FILE__).'/includes/config.php';
 if (!isset($argv[1])):
