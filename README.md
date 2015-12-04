@@ -1,7 +1,8 @@
 # masscan-web-ui
 MASSCAN Web UI
+https://www.offensive-security.com/offsec/masscan-web-interface/
 
-Here's a quick guide to get started until we made some better documentation:
+Here's a quick guide to get started:
 
 * Install and setup your web server, copy over the MASSCAN web ui files:
 
