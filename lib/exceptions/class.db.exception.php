@@ -3,8 +3,8 @@ class DBException extends Exception
 {
 	public function handleError()
 	{
-			echo $this->getMessage();
-			die;
+		include DOC_ROOT.'includes//error.php';
+		die;
 	}
 }
 ?>

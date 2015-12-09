@@ -39,15 +39,6 @@ class DB
 						$e->handleError();
 					}
 					break;
-						
-				case 'PostgreSQL':
-					if (!file_exists(dirname(__FILE__).'class.postgresql.php')) {
-						throw new DBException('MySQL Database class not found!');
-					}
-					require dirname(__FILE__).'class.postgresql.php';
-					$this->_Driver = new PostgreSQL();
-					break;
-						
 				default:
 					throw new DBException('Database driver constant not configured properly!');
 					break;
@@ -103,6 +94,7 @@ class DB
 	 *
 	 * @access public
 	 * @param string $q mysql statement
+	 * @return int Affected rows
 	 */
 	public static function execute($q)
 	{
@@ -189,5 +181,11 @@ class DB
 	public static function mysql_real_escape($value)
 	{
 		return self::getInstance()->_Driver->mysql_real_escape($value);
+	}
+
+
+	public static function profile()
+	{
+		return self::getInstance()->_Driver->profile();
 	}
 }

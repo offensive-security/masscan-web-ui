@@ -7,6 +7,7 @@ class MySQL implements dbInterface
 	private $_affected_rows		= 0;
 	private $_last_inserted_id	= 0;
 	private $_queryExecutionTime= 0;
+	private $_executedQueries	= array();
 
 
 	public function __construct()
@@ -14,7 +15,7 @@ class MySQL implements dbInterface
 		try {
 			$this->_con = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD);
 			if (!$this->_con) {
-				throw new DBException('Problem with the connection to the mysql server. Error: '.mysqli_connect_error());
+				throw new DBException('Problem with connection to the mysql server.<br> Error message: '.mysqli_connect_error());
 			}
 			if (!mysqli_select_db($this->_con, DB_DATABASE)) {
 				throw new DBException('Database '.DB_DATABASE.' not found!!');
@@ -33,14 +34,19 @@ class MySQL implements dbInterface
 		if (empty($q)) {
 			throw new DBException('Empty query submitted!');
 		}
-		$start =microtime(true);
+		if (DB_DEBUG):
+			$start = microtime(true);
+		endif;
+
 		$this->_res_resource = mysqli_query($this->_con, $q);
-		$end = $msc=microtime(true);
-		$this->_queryExecutionTime = $end-$start;
+		if (DB_DEBUG):
+			$end = microtime(true);
+			$this->_executedQueries[] = array(	'q'		=> $q,
+												'time'	=> $end-$start);
+		endif;
 		if (!$this->_res_resource) {
 			throw new DBException(mysqli_error($this->_con));
 		}
-		
 		if (preg_match('/^SELECT.+/',strtoupper($q))) {
 			$this->_res_num = @mysqli_num_rows($this->_res_resource);
 		}
@@ -103,6 +109,7 @@ class MySQL implements dbInterface
 	 *
 	 * @access public
 	 * @param string $q mysql statement
+	 * @return int Affected rows
 	 */
 	public function execute($q)
 	{
@@ -165,5 +172,50 @@ class MySQL implements dbInterface
 	public function getQueryExecutionTime()
 	{
 		return $this->_queryExecutionTime;
+	}
+
+	public function profile()
+	{
+		if (!empty($this->_executedQueries)):
+			$content = <<<CSS
+	<style>
+		table { border:2px solid #ccc;}
+		table td { border:1px solid #ccc; background:#e1e1e1; padding:2px 5px;}
+		table td.label { border:0; background:white; text-align:right;}
+	</style>
+CSS;
+			$totalQueries = 0;
+			$totalExecutionTime = 0;
+			$content .="<table>";
+			foreach ($this->_executedQueries as $q):
+				$totalQueries++;
+				$totalExecutionTime += (float) $q['time'];
+				$content .= "<tr>";
+				$content .= "<td>";
+				$content .= htmlentities($q['q']);
+				$content .= "</td>";
+				$content .= "<td>";
+				$content .= htmlentities($q['time']);
+				$content .= "</td>";
+				$content .= "</tr>";
+			endforeach;
+			$content .= "<tr><td class='label'>Total Queries:</td><td>{$totalQueries}</td></tr>";
+			$content .= "<tr><td class='label'>Total Execution Time:</td><td>{$totalExecutionTime}</td></tr>";
+			$content .="</table>";
+			ob_start();
+			?>
+			<script>
+				function writeConsole(content)
+				{
+					top.consoleRef=window.open('','myconsole','fullscreen=1');
+					top.consoleRef.document.write(content);
+					top.consoleRef.document.close();
+				}
+				var html = <?php echo json_encode($content);?>;
+				writeConsole(html);
+			</script>
+			<?php
+			ob_end_flush();
+		endif;
 	}
 }

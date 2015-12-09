@@ -27,18 +27,8 @@ if (isset($_GET['ip']) && !empty($_GET['ip']) && is_string($_GET['ip'])):
 	endif;
 endif;
 $filter['port'] = 0;
-if (isset($_GET['port']) && !empty($_GET['port']) && is_string($_GET['port'])):
-	$port = strip_tags(trim($_GET['port']));
-	if (preg_match("/^\d+$/", $filter['port'])):
-		if ((int) $_GET['port'] > 0 && (int) $_GET['port'] <= 65535):
-			$filter['port'] = (int) $_GET['port'];
-		else:
-			$errors[] = 'Port number ('.(int) $filter['port'].') is not valid!';
-		endif;
-	else:
-		$filter['port'] = 0;
-		$errors[] = 'Port number must be an integer from 1 to 65535';
-	endif;
+if (isset($_GET['port']) && !empty($_GET['port']) && is_string($_GET['port']) && (int) $_GET['port'] > 0 && (int) $_GET['port'] <= 65535):
+	$filter['port'] = (int) $_GET['port'];
 endif;
 $filter['protocol']		= isset($_GET['protocol']) && !empty($_GET['protocol']) && is_string($_GET['protocol'])	?	DB::escape($_GET['protocol'])	:	'';
 $filter['state']		= isset($_GET['state']) && !empty($_GET['state']) && is_string($_GET['state'])	?	DB::escape($_GET['state'])	:	'';
@@ -46,7 +36,7 @@ $filter['service']		= isset($_GET['service']) && !empty($_GET['service']) && is_
 $filter['banner']		= isset($_GET['banner']) && !empty($_GET['banner'])	&& is_string($_GET['banner'])	?	DB::escape($_GET['banner'])	:	'';
 $filter['exact-match']	= isset($_GET['exact-match']) && (int) $_GET['exact-match'] === 1 ?	1	:	0;
 $filter['text']			= isset($_GET['text']) && !empty($_GET['text'])	&& is_string($_GET['text'])	?	DB::escape($_GET['text'])	:	'';
-$filter['page']			= isset($_GET['page']) && (int) $_GET['page'] > 1	?	DB::escape($_GET['page'])	:	1;
+$filter['page']			= isset($_GET['page']) && (int) $_GET['page'] > 1	?	(int) $_GET['page']	:	1;
 $filter['rec_per_page']	= isset($_GET['rec_per_page']) && in_array((int) $_GET['rec_per_page'], array(10,20,40,50,100))	?	(int) $_GET['rec_per_page']	:	10;
 if (defined('EXPORT')):
 	$results = browse($filter, true);

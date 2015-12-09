@@ -67,9 +67,7 @@ if (trim(strtolower($input)) == 'yes'):
 	echo PHP_EOL;
 	echo "Clearing the db";
 	echo PHP_EOL;
-	$q = "TRUNCATE TABLE hosts";
-	DB::query($q);
-	$q = "TRUNCATE TABLE ports";
+	$q = "TRUNCATE TABLE data";
 	DB::query($q);
 endif;
 echo "Reading file";
@@ -79,29 +77,19 @@ echo "Parsing file";
 echo PHP_EOL;
 $xml = simplexml_load_string($content, 'SimpleXMLElement', LIBXML_COMPACT | LIBXML_PARSEHUGE);
 if ($xml === false):
-    die('There is a problem with this xml file?!');
+    die('There is a problem with this xml file?!'.PHP_EOL);
 endif;
 $total		= 0;
 $inserted	= 0;
 echo "Processing data (This may take some time depending on file size)";
 echo PHP_EOL;
 foreach ($xml->host as $host):
-    $q = "SELECT host_id FROM hosts WHERE ip = '".DB::escape((string) $host->address['addr'])."'" ;
-	$tmp = DB::fetch($q);
-	if (isset($tmp['host_id']) && (int) $tmp['host_id'] > 0):
-		$host_id = (int) $tmp['host_id']; 
-	else:
-		$q = "INSERT INTO hosts SET host_id = null, ip = '".DB::escape((string) $host->address['addr'])."'";
-		$tmp = DB::query($q);
-		$host_id = DB::insertId();
-	endif;
 	foreach ($host->ports as $p):
-        $total++;
-		$ts = (int) $host['endtime'];
+        $ip         = ip2long($host->address['addr']);
+		$ts         = (int) $host['endtime'];
 		$scanned_ts = date("Y-m-d H:i:s", $ts);
-
-        $port = (string) $p->port['portid'];
-        $protocol = (string) $p->port['protocol'];
+        $port       = (int) $p->port['portid'];
+        $protocol   = (string) $p->port['protocol'];
         if (isset($p->port->service)):
             $service = (string) $p->port->service['name'];
             if ($service == 'title'):
@@ -124,13 +112,12 @@ foreach ($xml->host as $host):
             $banner = '';
             $title = '';
         endif;
-
         $state = (string) $p->port->state['state'];
         $reason = (string) $p->port->state['reason'];
         $reason_ttl = (string) $p->port->state['reason_ttl'];
 
-        $q = "INSERT INTO ports SET id = null,
-                ip = ".(int) $host_id.",
+        $q = "INSERT INTO data SET id = null,
+                ip = ".$ip.",
                 port_id = ".(int) $port.",
                 scanned_ts = '".DB::escape($scanned_ts)."',
                 protocol = '".DB::escape($protocol)."',
@@ -139,10 +126,11 @@ foreach ($xml->host as $host):
                 reason_ttl = '".(int) $reason_ttl."',
                 service = '".DB::escape($service)."',
                 banner = '".DB::escape($banner)."',
-                title = '".DB::escape($title)."'
-                ";
-        DB::execute($q);
-        $inserted++;
+                title = '".DB::escape($title)."'";
+        $total++;
+        if (DB::execute($q)):
+            $inserted++;
+        endif;
 	endforeach;
 endforeach;
 $end_ts = time();
