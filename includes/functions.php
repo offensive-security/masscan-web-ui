@@ -22,8 +22,8 @@ function browse($filter, $export = false)
         list($start_ip, $end_ip) = getStartAndEndIps($filter['ip']);
         $q .= " AND (ip >= $start_ip AND ip <= $end_ip)";
     endif;
-    if (isset($filter['port']) && (int)$filter['port'] > 0 && (int)$filter['port'] <= 65535):
-        $q .= " AND port_id = " . (int)$filter['port'];
+    if (isset($filter['port']) && (int) $filter['port'] > 0 && (int) $filter['port'] <= 65535):
+        $q .= " AND port_id = " . (int) $filter['port'];
     endif;
     if (!empty($filter['protocol'])):
         $q .= " AND protocol = '" . DB::escape($filter['protocol']) . "'";

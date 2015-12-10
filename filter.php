@@ -1,6 +1,6 @@
 <?php
 define('APP_NAME', 'massscan');
-require dirname(__FILE__).'/includes/config.php';
+require dirname(__FILE__).'/config.php';
 require dirname(__FILE__).'/includes/functions.php';
 require dirname(__FILE__).'/includes/data_validation.php';
 if (isset($_GET['form'])):

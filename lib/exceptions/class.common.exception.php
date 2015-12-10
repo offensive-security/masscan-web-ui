@@ -22,4 +22,3 @@ class CommonException extends Exception
 
 	}
 }
-?>

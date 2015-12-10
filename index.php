@@ -1,6 +1,6 @@
 <?php
 define('DOC_ROOT', dirname(__FILE__).'/');
-require dirname(__FILE__).'/includes/config.php';
+require dirname(__FILE__).'/config.php';
 require dirname(__FILE__).'/includes/functions.php';
 require dirname(__FILE__).'/includes/data_validation.php';
 include dirname(__FILE__).'/includes/header.php';
@@ -80,6 +80,9 @@ include dirname(__FILE__).'/includes/header.php';
 
      <div class="row" id="content">
        <?php require dirname(__FILE__).'/includes/res-wrapper.php'; ?>
+         <?php if (empty($results['data'])): ?>
+             <p class="text-right">How to import data? Click <a href="javascript:void(0);" onclick="showImportHelp();">here</a> for more info.</p>
+         <?php endif;?>
     </div>
 </div> <!-- end of .container-fluid -->
 <!-- END PAGE CONTENT -->

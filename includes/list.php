@@ -77,7 +77,6 @@
     <?php endif; ?>
     </tbody>
 </table>
-
 <?php if ($results['pagination']['records'] > 0):?>
     <div class="row pagination-container">
         <div class="col-md-6">

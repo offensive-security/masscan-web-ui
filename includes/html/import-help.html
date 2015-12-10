@@ -1,0 +1,35 @@
+<p>Now you can use masscan to scan your targets, while specifying an XML output. More information about banner grabbing with masscan can be found at <a href="https://github.com/robertdavidgraham/masscan#banner-checking">https://github.com/robertdavidgraham/masscan#banner-checking</a>.</p>
+<pre>
+masscan 10.0.0.0/8 -p80,21,53 --banners --source-ip 10.0.0.2 --max-rate 1000000 -oX scan-01.xml
+</pre>
+<p>Now let's import some scan results. In this example we imported the results of two class A scans:</p>
+<pre>
+root@kali:/var/www/html# ls -l scan*
+-rw-r--r-- 1 root root 212929324 Dec  1 13:23 scan-01.xml
+-rw-r--r-- 1 root root 700816226 Dec  1 13:55 scan-02.xml
+root@kali:/var/www/html# php import.php scan-01.xml
+
+Do you want to clear the database before importing (yes/no)?: yes
+
+Clearing the db
+Reading file
+Parsing file
+Processing data (This may take some time depending on file size)
+
+Summary:
+Total records:738279
+Inserted records:738279
+Took about:3 minutes,18 seconds
+root@kali:/var/www/html# php import.php scan-02.xml
+
+Do you want to clear the database before importing (yes/no)?: no
+Reading file
+Parsing file
+Processing data (This may take some time depending on file size)
+
+Summary:
+Total records:2411974
+Inserted records:2411974
+Took about:9 minutes,41 seconds
+root@kali:/var/www/html#
+</pre>
