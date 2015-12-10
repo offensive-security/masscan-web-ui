@@ -40,7 +40,7 @@ root@kali:/var/www/html# rm db-structure.sql index.html README.md
 Update the web config file with the mysql user and database information:
 
 ```
-nano includes/config.php
+nano config.php
 
 define('DB_DRIVER',     'MySQL');
 define('DB_HOST',       'localhost');
