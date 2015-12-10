@@ -1,0 +1,34 @@
+<div class="alert alert-warning">
+    <h4 class="text-primary"><strong>MySql fine tunning</strong></h4>
+    <p>Masscan WEB UI use <a href="http://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html">Full Text Search</a>. The minimum length of words to be indexed is defined by the variable <strong>ft_min_word_len</strong>.</p>
+    <p>Variable must be set at server startup time. A server restart is required for the change to take effect and variable cannot be modified while the server is running.</p>
+    <p>Default value for <strong>ft_min_word_len</strong> is 4 and you probably need smaller value, 2 or even 1.</p>
+    <br>
+    <p>To change this variable, open MySql configuration file named <strong>my.cnf</strong> and change the value to the smaller one.</p>
+    <p>On Linux my.cnf is usually located in /etc/my.cnf, so to edit file type in terminal as root:</p>
+    <pre class="shell">
+root@kali:~# nano /etc/my.cnf
+</pre>
+    <p>Find [mysqld] section in my.cnf and add/change variable=value pair to look something like this:</p>
+    <pre>
+[mysqld]
+ft_min_word_len=2
+</pre>
+    <p>Restart MySql server by executing following command:</p>
+    <pre class="shell">
+root@kali:~# service mysql restart
+</pre>
+    <br>
+    <p>If your database is not empty, you should rebuild your FULLTEXT indexes for the change to take effect.</p>
+    <p>For rebuilding FULLTEXT indexes, open terminal, log in into MySql as root, select appropriate database and execute REPAIR TABLE command.</p>
+    <p>That should be looking similar to this:</p>
+    <pre class="shell">
+root@kali:~# mysql -u root -p
+Enter password:
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+mysql>use <?php echo DB_DATABASE; ?>;
+Database changed
+mysql>REPAIR TABLE data QUICK;
+</pre>
+    <p>Doing that you are done with fine tuning of MySql.</p>
+</div>

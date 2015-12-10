@@ -1,5 +1,4 @@
 var delayTimer;
-
 $('#myModal').on('show', function () {
     $(this).find('.modal-body').css({width:'auto',
                                height:'auto', 
@@ -161,6 +160,33 @@ function searchData(data, throbber)
             dataType:'html',
             data:data,
             url:'/filter.php'
+        };
+    $.ajax(ajax_options);
+    return false;
+}
+
+function showImportHelp()
+{
+    jQuery('#myModalLabel').text('How to scan and import data?');
+    var ajax_options = {
+            beforeSend:function () {
+
+            },
+            complete:function () {
+
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('There was an error during request. Please try again!');
+            },
+            success:function (response, textStatus) {
+            	$('#myModal').modal('show');
+            	jQuery('.modal-body').html(response);
+            },
+            timeout:'100000',
+            type:'get',
+            dataType:'html',
+            data:'',
+            url:'/includes/html/import-help.html'
         };
     $.ajax(ajax_options);
     return false;

@@ -39,7 +39,7 @@ function seconds2human($ss)
  * Magic starts here
  */
 $start_ts = time();
-require dirname(__FILE__).'/includes/config.php';
+require dirname(__FILE__).'/config.php';
 if (!isset($argv[1])):
 	die('Please provide a file name to import!'."\n");
 endif;

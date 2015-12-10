@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS `data` (
   `service` varchar(100) NOT NULL DEFAULT '',
   `banner` text NOT NULL,
   `title` text NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 ALTER TABLE `data` ADD PRIMARY KEY (`id`), ADD KEY `scanned_ts` (`scanned_ts`), ADD KEY `ip` (`ip`), ADD FULLTEXT KEY `banner` (`banner`,`title`);
 ALTER TABLE `data` MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;

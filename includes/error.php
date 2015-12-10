@@ -6,10 +6,22 @@
                 <h1>Oops!</h1>
                 <h2>An error has occured.</h2>
                 <div class="alert alert-danger" role="alert">
-                    <p><?php echo htmlentities($this->getMessage()); ?></p>
+                    <p><?php echo $this->getMessage(); ?></p>
                 </div>
-                <p>Check <a href="https://github.com/offensive-security/masscan-web-ui#readme" target="_blank">read me</a> file for help.</p>
-            </div>
+                <?php
+                    if (preg_match('/^(.*)Access denied for user (.*)/s', $this->getMessage(), $matches)):
+                        include DOC_ROOT.'includes/html/db-create-user-help.html';
+                        include DOC_ROOT.'includes/html/db-structure-help.html';
+                        include DOC_ROOT.'includes/html/db-tuning.html';
+                        include DOC_ROOT.'includes/html/delete-files-help.html';
+                    elseif (preg_match('/^Database (.*) not found/', $this->getMessage(), $matches)):
+                            include DOC_ROOT.'includes/html/db-database-help.html';
+                            include DOC_ROOT.'includes/html/db-structure-help.html';
+                            include DOC_ROOT.'includes/html/db-tuning.html';
+                            include DOC_ROOT.'includes/html/delete-files-help.html';
+                    endif;
+                ?>
+            </div> <!-- end of .jumbotron -->
         </div>
     </div>
 </div>

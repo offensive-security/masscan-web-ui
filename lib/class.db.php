@@ -113,12 +113,16 @@ class DB
 	 * @return bool true on success otherwise false
 	 *
 	 */
-	public static function query($q)
+	public static function query($q, $throwException = true)
 	{
 		try {
 			return self::getInstance()->_Driver->query($q);
 		} catch (DBException $e) {
-			$e->handleError();
+			if ($throwException):
+				$e->handleError();
+			else:
+				return false;
+			endif;
 		}
 	}
 

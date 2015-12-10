@@ -1,5 +1,5 @@
-<?php 
-require dirname(__FILE__).'/includes/config.php';
+<?php
+require dirname(__FILE__).'/config.php';
 $ip = (int) $_GET['ip'];
 if ($ip > 0):
 	$q = "SELECT ip as ipaddress, port_id, service, protocol, banner, title FROM data WHERE ip =".(int) $ip." ORDER BY scanned_ts DESC";

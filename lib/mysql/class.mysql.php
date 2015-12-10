@@ -15,7 +15,7 @@ class MySQL implements dbInterface
 		try {
 			$this->_con = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD);
 			if (!$this->_con) {
-				throw new DBException('Problem with connection to the mysql server.<br> Error message: '.mysqli_connect_error());
+				throw new DBException("Problem with connection to the mysql server.<br><strong>Error message: ".mysqli_connect_error()."</strong>");
 			}
 			if (!mysqli_select_db($this->_con, DB_DATABASE)) {
 				throw new DBException('Database '.DB_DATABASE.' not found!!');
@@ -34,12 +34,12 @@ class MySQL implements dbInterface
 		if (empty($q)) {
 			throw new DBException('Empty query submitted!');
 		}
-		if (DB_DEBUG):
+		if (defined('DB_DEBUG') && DB_DEBUG):
 			$start = microtime(true);
 		endif;
 
 		$this->_res_resource = mysqli_query($this->_con, $q);
-		if (DB_DEBUG):
+		if (defined('DB_DEBUG') && DB_DEBUG):
 			$end = microtime(true);
 			$this->_executedQueries[] = array(	'q'		=> $q,
 												'time'	=> $end-$start);
@@ -57,7 +57,6 @@ class MySQL implements dbInterface
 		else{
 			$this->_affected_rows = @mysqli_affected_rows($this->_con);
 		}
-		
 		return true;
 	}
 

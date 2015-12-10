@@ -131,4 +131,6 @@ img#ajax-loader-pagination { margin:10px 15px 0 0; display:none;}
 
 .container.errorPage { min-height:540px; }
 .container.errorPage p { font-size: inherit !important;}
-.container.errorPage .jumbotron { margin-top:5%; }
+.container.errorPage .jumbotron { margin-top:0 !important; padding-top:10px !important;}
+.container.errorPage .jumbotron h1 { margin:0 !important;}
+pre.shell { background:black; color:white; }
