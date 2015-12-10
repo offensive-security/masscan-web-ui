@@ -9,16 +9,8 @@
                     <p><?php echo $this->getMessage(); ?></p>
                 </div>
                 <?php
-                    if (preg_match('/^(.*)Access denied for user (.*)/s', $this->getMessage(), $matches)):
-                        include DOC_ROOT.'includes/html/db-create-user-help.html';
-                        include DOC_ROOT.'includes/html/db-structure-help.html';
-                        include DOC_ROOT.'includes/html/db-tuning.html';
-                        include DOC_ROOT.'includes/html/delete-files-help.html';
-                    elseif (preg_match('/^Database (.*) not found/', $this->getMessage(), $matches)):
-                            include DOC_ROOT.'includes/html/db-database-help.html';
-                            include DOC_ROOT.'includes/html/db-structure-help.html';
-                            include DOC_ROOT.'includes/html/db-tuning.html';
-                            include DOC_ROOT.'includes/html/delete-files-help.html';
+                    if (preg_match('/^Database (.*) not found/', $this->getMessage(), $matches)):
+                        include dirname(__FILE__).'/html/dbname-error-help.html';
                     endif;
                 ?>
             </div> <!-- end of .jumbotron -->

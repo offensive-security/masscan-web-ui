@@ -32,7 +32,7 @@ root@kali:<?php echo DOC_ROOT; ?># mysql -u <?php echo DB_USERNAME;?> -p <?php e
                         else:
                             ?>
                             <p class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Installation completed, queries executed successfully.</p>
-                            <?php include DOC_ROOT.'includes/html/db-tuning.html';?>
+                            <?php include DOC_ROOT.'includes/html/db-tuning-help.html';?>
                             <?php include DOC_ROOT.'includes/html/delete-files-help.html';?>
                             <p>MASSCAN Web UI is ready for use. Refresh this page by pressing F5 or clicking <a href="/">here</a> to start.</p>
                             <?php
