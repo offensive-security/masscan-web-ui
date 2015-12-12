@@ -42,7 +42,6 @@ Update the web config file with the mysql user and database information:
 ```
 nano config.php
 
-define('DB_DRIVER',     'MySQL');
 define('DB_HOST',       'localhost');
 define('DB_USERNAME',   'masscan');
 define('DB_PASSWORD',   'changem3');

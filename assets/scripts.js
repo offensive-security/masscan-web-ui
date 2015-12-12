@@ -74,7 +74,7 @@ function submitSearchForm()
             alert('There was an error durring request. Please try again later!');
         },
         success:function (response, textStatus) {
-            jQuery('#content').html(response);
+            jQuery('#ajax-search-container').html(response);
             jQuery('a#export-link').attr('onclick','').unbind('click');
             jQuery('a#export-link').click(function(){
                 exportResultsToXML(data);
