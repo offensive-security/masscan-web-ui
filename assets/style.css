@@ -63,9 +63,9 @@ table td {
     vertical-align: middle !important;;
 }
 /* END Digi */
-
-body { color: #666; background:#FDFDFD !important; font-family: 'Open Sans', arial,sans-serif; margin-top:60px;}
-.content { margin:0 5px;}
+html { position: relative; min-height: 100%; }
+body { color: #666; background:#FDFDFD !important; font-family: 'Open Sans', arial,sans-serif; margin:60px 0 52px 0;}
+footer { position: absolute; left: 0; bottom: 0; height: 52px; width: 100%; }
 nav.navbar-fixed-top { border-bottom:7px solid #eee !important; }
 nav a { color:white; }
 nav a:hover { text-decoration:none; color:#e1e1e1;}
@@ -86,6 +86,7 @@ footer {
 footer { color:white; padding:10px 0 0 0; font-family: 'Open Sans Light', arial, sans-serif !important;}
 footer a { font-weight:bold; text-decoration:none !important;}
 footer a:hover { text-decoration:underline !important;}
+
 .panel-heading a { text-decoration:none; color:black;}
 .panel-heading h4 { font-size:18px; display:inline-block; padding:0; margin:0;}
 .panel-body { background:#F9F9F9;}
@@ -131,6 +132,8 @@ img#ajax-loader-pagination { margin:10px 15px 0 0; display:none;}
 
 .container.errorPage { min-height:540px; }
 .container.errorPage p { font-size: inherit !important;}
-.container.errorPage .jumbotron { margin-top:0 !important; padding-top:10px !important;}
+.container.errorPage .jumbotron { margin:0 0 10px 0!important; padding-top:10px !important;}
 .container.errorPage .jumbotron h1 { margin:0 !important;}
 pre.shell { background:black; color:white; }
+.panel-default.margin { margin-left:5px; margin-right:5px;}
+p.import-help { margin-right:5px; font-size:0.9em;}

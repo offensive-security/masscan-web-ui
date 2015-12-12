@@ -16,32 +16,19 @@ class DB
 	private static $_Instance;
 	private $_Driver;
 
-	/**
-	 * According to the constant from the config file, load database class,
-	 * create class instance and store in database property
-	 */
 	private function __construct()
 	{
 		try {
-			if (!defined('DB_DRIVER')) {
-				throw new DBException('Database driver not defined. Please check your config file!');
-			}
-			switch (DB_DRIVER)
-			{
-				case 'MySQL':
-					if (!file_exists(dirname(__FILE__).'/mysql/class.mysql.php')) {
-						throw new DBException('MySQL Database class not found!');
-					}
-					require dirname(__FILE__).'/mysql/class.mysql.php';
-					try {
-						$this->_Driver = new MySQL();
-					} catch (DBException $e) {
-						$e->handleError();
-					}
-					break;
-				default:
-					throw new DBException('Database driver constant not configured properly!');
-					break;
+			if (!file_exists(dirname(__FILE__).'/mysql/class.mysql.php')):
+				throw new DBException('MySQL Database class not found!');
+			elseif (!is_readable(dirname(__FILE__).'/mysql/class.mysql.php')):
+				throw new DBException('MySql Database class not readable. Check file permissions for '.dirname(__FILE__).'/mysql/class.mysql.php');
+			endif;
+			require dirname(__FILE__).'/mysql/class.mysql.php';
+			try {
+				$this->_Driver = new MySQL();
+			} catch (DBException $e) {
+				$e->handleError();
 			}
 		} catch (DBException $e) {
 			$e->handleError();

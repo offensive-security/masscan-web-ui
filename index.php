@@ -6,10 +6,10 @@ require dirname(__FILE__).'/includes/data_validation.php';
 include dirname(__FILE__).'/includes/header.php';
 ?>
 <!-- BEGIN PAGE CONTENT -->
-<div class="container-fluid content">
+<div class="container-fluid">
     <div class="row">
         <!-- BEGIN FORM CONTENT-->
-         <div class="panel panel-default">
+         <div class="panel panel-default margin">
              <div style="display:block;" class="panel-heading clearfix" data-toggle="collapse" href="#collapse">
                  <h4 class="pull-left"><i class="glyphicon glyphicon-search"></i> Search</h4>
                  <div id="search-params" class="pull-left"></div>
@@ -78,11 +78,11 @@ include dirname(__FILE__).'/includes/header.php';
          <!-- END FORM CONTENT-->
      </div> <!--end of .row -->
 
-     <div class="row" id="content">
-       <?php require dirname(__FILE__).'/includes/res-wrapper.php'; ?>
-         <?php if (empty($results['data'])): ?>
-             <p class="text-right">How to import data? Click <a href="javascript:void(0);" onclick="showImportHelp();">here</a> for more info.</p>
-         <?php endif;?>
+    <div class="row" id="ajax-search-container">
+        <?php require dirname(__FILE__).'/includes/res-wrapper.php'; ?>
+        <?php if (empty($results['data'])): ?>
+            <p class="text-right import-help">How to import data? Click <a href="javascript:void(0);" onclick="showImportHelp();">here</a> for more info.</p>
+        <?php endif;?>
     </div>
 </div> <!-- end of .container-fluid -->
 <!-- END PAGE CONTENT -->
