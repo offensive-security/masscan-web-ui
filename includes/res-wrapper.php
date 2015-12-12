@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default margin">
     <div class="panel-heading" >
         <h4><i class="glyphicon glyphicon-globe"></i> Results</h4>
         <div class="btn-group pull-right ">
