@@ -85,7 +85,7 @@ echo "Processing data (This may take some time depending on file size)";
 echo PHP_EOL;
 foreach ($xml->host as $host):
 	foreach ($host->ports as $p):
-        $ip         = ip2long($host->address['addr']);
+        $ip         = sprintf('%u', ip2long($host->address['addr']));
 		$ts         = (int) $host['endtime'];
 		$scanned_ts = date("Y-m-d H:i:s", $ts);
         $port       = (int) $p->port['portid'];
