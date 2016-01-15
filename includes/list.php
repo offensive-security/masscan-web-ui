@@ -61,8 +61,8 @@
                     <?php if ($r['service'] !== 'title'): ?>
                         <?php echo htmlentities($r['service']); ?>
                         <?php if ($r['service'] == 'http'): ?>
-                            <a href="http://<?php echo long2ip($r['ipaddress']);?>" target="_blank"><i class="glyphicon glyphicon-new-window"></i></a>
-                        <?php endif; ?>
+                        <a href="http://<?php echo long2ip($r['ipaddress'])?><?php echo ((int) $r['port_id'] > 0 && (int) $r['port_id'] !== 80)   ? ':'.$r['port_id']   :   '';?>" target="_blank"><i class="glyphicon glyphicon-new-window"></i></a><?php
+                        endif; ?>
                     <?php endif; ?>
                 </td>
                 <td class="protocol"><?php echo htmlentities($r['protocol']); ?></td>
