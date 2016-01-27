@@ -68,7 +68,7 @@ include dirname(__FILE__).'/includes/header.php';
                              <div class="col-md-3">
                                  <br>
                                  <button type="submit" class="btn btn-primary btn-sm" style="width:100px;"><i class="glyphicon glyphicon-ok"></i> Go</button>
-                                 <span class="ajax-throbber-wrapper-form"><img src="/assets/img/ajax-loader.gif" alt="Loading..." title="Loading..." id="ajax-loader-form"/></span>
+                                 <span class="ajax-throbber-wrapper-form"><img src="./assets/img/ajax-loader.gif" alt="Loading..." title="Loading..." id="ajax-loader-form"/></span>
                              </div>
                          </div> <!-- end of .row-->
                      </form>
