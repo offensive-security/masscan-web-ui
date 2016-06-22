@@ -69,7 +69,7 @@ footer { position: absolute; left: 0; bottom: 0; height: 52px; width: 100%; }
 nav.navbar-fixed-top { border-bottom:7px solid #eee !important; }
 nav a { color:white; }
 nav a:hover { text-decoration:none; color:#e1e1e1;}
-.navbar-fixed-top { background: #6b0000 url(/assets/img/header-swirl.png) top left repeat-x;}
+.navbar-fixed-top { background: #6b0000 url(../assets/img/header-swirl.png) top left repeat-x;}
 .navbar-header { width:100%; }
 .navbar-header h1 { margin:10px 0 !important; padding:0; font-size:20px; color:white; font-weight:bold; display:inline-block;}
 a.offsec-logo { margin:0;}
