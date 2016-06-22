@@ -49,7 +49,7 @@ mysql> exit
 Bye
 </pre>
                     <p>and you are done.</p>
-                    <p>When you finished with all the above, you can continue with installation by pressing F5 or clicking <a href="/">here</a>.</p>
+                    <p>When you finished with all the above, you can continue with installation by pressing F5 or clicking <a href="./">here</a>.</p>
                 </div> <!-- end of .jumbotron -->
             </div> <!-- end .col-md-12 -->
         </div> <!-- end of .row -->
