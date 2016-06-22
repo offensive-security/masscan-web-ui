@@ -34,7 +34,7 @@ root@kali:<?php echo DOC_ROOT; ?># mysql -u <?php echo DB_USERNAME;?> -p <?php e
                             <p class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Installation completed, queries executed successfully.</p>
                             <?php include DOC_ROOT.'includes/html/db-tuning-help.html';?>
                             <?php include DOC_ROOT.'includes/html/delete-files-help.html';?>
-                            <p>MASSCAN Web UI is ready for use. Refresh this page by pressing F5 or clicking <a href="/">here</a> to start.</p>
+                            <p>MASSCAN Web UI is ready for use. Refresh this page by pressing F5 or clicking <a href="./">here</a> to start.</p>
                             <?php
                         endif;
                     endif;
@@ -47,7 +47,7 @@ root@kali:<?php echo DOC_ROOT; ?># mysql -u <?php echo DB_USERNAME;?> -p <?php e
                     elseif (!is_readable(DOC_ROOT.'db-structure.sql')):
                         ?>
                         <p class="alert alert-danger"><i class="glyphicon glyphicon-remove"></i> File db-structure.sql in <?php echo DOC_ROOT;?> is not readable and installer can not execute required queries.</p>
-                        <p>Make it readable and refresh page by clicking <a href="/">here</a> to try again.</p>
+                        <p>Make it readable and refresh page by clicking <a href="./">here</a> to try again.</p>
                         <?php
                     else:
 
