@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `data` (
   `ip` int(10) unsigned NOT NULL DEFAULT '0',
   `port_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `scanned_ts` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `protocol` enum('tcp','utp') NOT NULL,
+  `protocol` enum('tcp','udp') NOT NULL,
   `state` varchar(10) NOT NULL DEFAULT '',
   `reason` varchar(255) NOT NULL DEFAULT '',
   `reason_ttl` int(10) unsigned NOT NULL DEFAULT '0',
