@@ -34,7 +34,11 @@ function seconds2human($ss)
     }
     return $text;
 }
-
+if (!extension_loaded('simplexml')) {
+    echo "This script require php-xml package.".PHP_EOL;
+    echo "Install the package, restart webserver and run script again.".PHP_EOL;
+    exit;
+}
 /**
  * Magic starts here
  */

@@ -4,6 +4,20 @@
             <div class="col-md-12">
                 <div class="jumbotron">
                     <h2>Setup MASSCAN WEB UI</h2>
+                    <?php
+                        if (!extension_loaded('simplexml')) {
+                            ?>
+                                <div class="alert alert-danger">
+                                    <p><i class="glyphicon glyphicon-info-sign"></i> PHP-XML package is missing!</p>
+                                    <p>To install PHP_XML package on Ubunty type:</p>
+                                    <pre class="shell">
+root@kali:~# sudo apt-get install php-xml
+                                    </pre>
+                                    <p>Don't forget to restart webserver after installing.</p>
+                                </div>
+                            <?php
+                        }
+                    ?>
                     <p>It's easy and fast. Just follow instructions and setup will be done in a few minutes.</p>
                     <p>Open terminal and go to the document root of application by typing:</p>
 <pre class="shell">
