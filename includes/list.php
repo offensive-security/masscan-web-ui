@@ -70,7 +70,7 @@
         <?php endforeach; ?>
     <?php else: ?>
         <tr>
-            <td colspan="10" class="text-center">
+            <td colspan="5" class="text-center">
                 <p class="alert alert-danger">No results</p>
             </td>
         </tr>
