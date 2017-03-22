@@ -5,6 +5,7 @@
             <button class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">Save <i class="glyphicon glyphicon-chevron-down"></i></button>
             <ul class="dropdown-menu">
                 <li><a href="javascript:void(0);" onclick="return exportResultsToXML('<?php echo http_build_query($filter);?>');" style="margin-left:10px;" id="export-link">Export to XML</a></li>
+                <li><a href="export-csv.php" style="margin-left:10px;" id="export-link">Export to CSV</a></li>
             </ul>
         </div>
     </div> <!-- end of .panel-heading-->

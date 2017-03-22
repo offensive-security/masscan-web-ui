@@ -34,7 +34,7 @@ define('DB_USERNAME',	'<?php echo DB_USERNAME;?>');
 define('DB_PASSWORD', 	'<?php echo DB_PASSWORD;?>');
 define('DB_DATABASE', 	'<?php echo DB_DATABASE;?>');
 </pre>
-                    <p class="alert alert-info">If you change default database params in config.php before you continue with setup, in order for the changes to take effect refresh this page (press F5 or click <a href="/">here</a>) and you will have updated all commands later in this page.</p>
+                    <p class="alert alert-info">If you change default database params in config.php before you continue with setup, in order for the changes to take effect refresh this page (press F5 or click <a href="./">here</a>) and you will have updated all commands later in this page.</p>
                     <p>Next step is to login to MySql as root by executing following command:</p>
 <pre class="shell">
 root@kali:<?php echo DOC_ROOT;?># mysql -u root -p
@@ -63,7 +63,7 @@ mysql> exit
 Bye
 </pre>
                     <p>and you are done.</p>
-                    <p>When you finished with all the above, you can continue with installation by pressing F5 or clicking <a href="/">here</a>.</p>
+                    <p>When you finished with all the above, you can continue with installation by pressing F5 or clicking <a href="./">here</a>.</p>
                 </div> <!-- end of .jumbotron -->
             </div> <!-- end .col-md-12 -->
         </div> <!-- end of .row -->

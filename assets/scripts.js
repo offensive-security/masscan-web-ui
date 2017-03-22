@@ -84,7 +84,7 @@ function submitSearchForm()
         type:'get',
         dataType:'html',
         data:data,
-        url:'/filter.php'
+        url:'./filter.php'
     };
     $.ajax(ajax_options);
     return false;
@@ -110,7 +110,7 @@ function showIpHistory(ip, ipa)
             type:'get',
             dataType:'html',
             data:'ip='+ipa,
-            url:'/ajax.php'
+            url:'./ajax.php'
         };
     $.ajax(ajax_options);
     return false;
@@ -119,7 +119,7 @@ function showIpHistory(ip, ipa)
 
 function exportResultsToXML(data)
 {
-    var url='/export.php?'+ data;
+    var url='./export.php?'+ data;
 	var _iframe_dl = $('<iframe />')
 	       .attr('src', url)
 	       .hide()
@@ -159,7 +159,7 @@ function searchData(data, throbber)
             type:'get',
             dataType:'html',
             data:data,
-            url:'/filter.php'
+            url:'./filter.php'
         };
     $.ajax(ajax_options);
     return false;
@@ -186,7 +186,7 @@ function showImportHelp()
             type:'get',
             dataType:'html',
             data:'',
-            url:'/includes/html/import-help.html'
+            url:'./includes/html/import-help.html'
         };
     $.ajax(ajax_options);
     return false;

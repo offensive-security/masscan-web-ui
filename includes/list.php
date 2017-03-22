@@ -25,7 +25,7 @@
 
         <form class="form-inline">
             <div class="form-group">
-                <span class="ajax-throbber-wrapper"><img src="/assets/img/ajax-loader.gif" alt="Loading..." title="Loading..." id="ajax-loader" /></span>
+                <span class="ajax-throbber-wrapper"><img src="./assets/img/ajax-loader.gif" alt="Loading..." title="Loading..." id="ajax-loader" /></span>
                 <label>Search:</label>
                 <input class="form-control input-sm"  type="text" onkeyup="searchDataText('<?php echo $data_search; ?>'+this.value);" value="<?php echo htmlentities($filter['text']); ?>">
             </div>
@@ -101,7 +101,7 @@
                     </li>
                 </ul>
             </nav>
-            <img src="/assets/img/ajax-loader.gif" alt="Loading..." title="Loading..." id="ajax-loader-pagination" class="pull-right">
+            <img src="./assets/img/ajax-loader.gif" alt="Loading..." title="Loading..." id="ajax-loader-pagination" class="pull-right">
         </div> <!-- end of col-md-6 -->
     </div> <!-- end of .row -->
 <?php endif;?>
