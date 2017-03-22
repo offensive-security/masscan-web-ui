@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `data` (
 `id` bigint(20) unsigned NOT NULL,
   `ip` int(10) unsigned NOT NULL DEFAULT '0',
   `port_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `scanned_ts` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `scanned_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `protocol` enum('tcp','udp') NOT NULL,
   `state` varchar(10) NOT NULL DEFAULT '',
   `reason` varchar(255) NOT NULL DEFAULT '',
