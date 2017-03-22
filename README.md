@@ -8,7 +8,7 @@ Here's a quick guide to get started:
 * Install and setup your web server, copy over the MASSCAN web-ui files:
 
 ```
-root@kali:~# apt-get install apache2 php5 php5-mysql mysql-server
+root@kali:~# apt-get install apache2 php libapache2-mod-php php-mysqli php-xml mysql-server
 root@kali:~# git clone https://github.com/offensive-security/masscan-web-ui
 root@kali:~# mv masscan-web-ui/* /var/www/html/
 root@kali:~# cd /var/www/html/
