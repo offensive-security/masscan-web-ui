@@ -66,13 +66,12 @@ do {
 	$handle = fopen ("php://stdin","r");
 	$input = fgets($handle);
 } while (!in_array(trim($input), array('yes', 'no')));
-
+$db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_DATABASE, DB_USERNAME, DB_PASSWORD);
 if (trim(strtolower($input)) == 'yes'):
 	echo PHP_EOL;
 	echo "Clearing the db";
 	echo PHP_EOL;
-	$q = "TRUNCATE TABLE data";
-	DB::query($q);
+    $db->exec("TRUNCATE TABLE data");
 endif;
 echo "Reading file";
 echo PHP_EOL;
@@ -87,8 +86,21 @@ $total		= 0;
 $inserted	= 0;
 echo "Processing data (This may take some time depending on file size)";
 echo PHP_EOL;
+$q = "INSERT INTO data (id, ip, port_id, scanned_ts, protocol, state, reason, reason_ttl, service, banner, title) VALUES (null, :ip, :port, :scanned_ts, :protocol, :state, :reason, :reason_ttl, :service, :banner, :title)";
+$stmt = $db->prepare($q);
+$stmt->bindParam(':ip', $ip);
+$stmt->bindParam(':port', $port);
+$stmt->bindParam(':scanned_ts', $scanned_ts);
+$stmt->bindParam(':protocol', $protocol);
+$stmt->bindParam(':state', $state);
+$stmt->bindParam(':reason', $reason);
+$stmt->bindParam(':reason_ttl', $reason_ttl);
+$stmt->bindParam(':service', $service);
+$stmt->bindParam(':banner', $banner);
+$stmt->bindParam(':title', $title);
 foreach ($xml->host as $host):
-	foreach ($host->ports as $p):
+
+    foreach ($host->ports as $p):
         $ip         = sprintf('%u', ip2long($host->address['addr']));
 		$ts         = (int) $host['endtime'];
 		$scanned_ts = date("Y-m-d H:i:s", $ts);
@@ -119,20 +131,8 @@ foreach ($xml->host as $host):
         $state = (string) $p->port->state['state'];
         $reason = (string) $p->port->state['reason'];
         $reason_ttl = (string) $p->port->state['reason_ttl'];
-
-        $q = "INSERT INTO data SET id = null,
-                ip = ".$ip.",
-                port_id = ".(int) $port.",
-                scanned_ts = '".DB::escape($scanned_ts)."',
-                protocol = '".DB::escape($protocol)."',
-                state = '".DB::escape($state)."',
-                reason = '".DB::escape($reason)."',
-                reason_ttl = '".(int) $reason_ttl."',
-                service = '".DB::escape($service)."',
-                banner = '".DB::escape($banner)."',
-                title = '".DB::escape($title)."'";
         $total++;
-        if (DB::execute($q)):
+        if ($stmt->execute()):
             $inserted++;
         endif;
 	endforeach;

@@ -7,6 +7,10 @@ function pre_var_dump($var)
 }
 function browse($filter, $export = false)
 {
+    $db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_DATABASE, DB_USERNAME, DB_PASSWORD);
+    //$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
     $records_per_page = (int)$filter['rec_per_page'];
     if (isset($filter['page']) && $filter['page'] > 1):
         $page = (int)$filter['page'];
@@ -58,14 +62,22 @@ function browse($filter, $export = false)
     else:
         $q4 = "";
     endif;
-    $data = DB::fetchAll($q1 . $q . $q3 . $q4);
+    try {
+        $stmt = $db->query($q1 . $q . $q3 . $q4);
+    }
+    catch(PDOException $ex) {
+        echo "An Error occured!";
+        echo $ex->getMessage();
+        die;
+    }
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if ($export) {
         return $data;
     }
-    $total = DB::fetch($q2 . $q);
+    $tmp2 = $db->query($q2 . $q);
+    $total = $tmp2->fetch(PDO::FETCH_ASSOC);
     $to = $from + $records_per_page < $total['total_records'] ? $from + $records_per_page : $total['total_records'];
     $pages = $total ['total_records'] > 1 ? ceil($total ['total_records'] / $records_per_page) : 0;
-
     return array(
         'data' => $data,
         'pagination' => array(

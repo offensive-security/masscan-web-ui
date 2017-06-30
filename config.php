@@ -13,11 +13,9 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
 /**
  * Database related configuration
  */
+define('DB_DRIVER',	    'mysql');
 define('DB_HOST',	    'localhost');
 define('DB_USERNAME',	'masscan');
 define('DB_PASSWORD', 	'changem3');
 define('DB_DATABASE', 	'masscan');
-/**
- * Include the db class
- */
-require dirname(__FILE__).'/lib/class.db.php';
+define('DB_DEBUG', 1);

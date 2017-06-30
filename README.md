@@ -37,11 +37,11 @@ Enter password:
 root@kali:/var/www/html# rm db-structure.sql index.html README.md
 ```
 
-Update the web config file with the mysql user and database information:
+Update the web config file with the database information:
 
 ```
 nano config.php
-
+define('DB_DRIVER',	    'mysql');
 define('DB_HOST',       'localhost');
 define('DB_USERNAME',   'masscan');
 define('DB_PASSWORD',   'changem3');
