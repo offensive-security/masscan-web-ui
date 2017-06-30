@@ -12,10 +12,10 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
 /**
  * Database related configuration
+ * For DB_DRIVER use mysql for MySQL or pgsql for PostgreSQL
  */
-define('DB_DRIVER',	    'mysql');
-define('DB_HOST',	    'localhost');
+define('DB_DRIVER',	    'pgsql');
+define('DB_HOST',	    '127.0.0.1');
 define('DB_USERNAME',	'masscan');
 define('DB_PASSWORD', 	'changem3');
 define('DB_DATABASE', 	'masscan');
-define('DB_DEBUG', 1);

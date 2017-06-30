@@ -6,13 +6,16 @@
                 <h2>Installing db tables</h2>
                 <p>Installer will try to automatically execute required db queries for creating necessary tables.</p>
                 <?php
-                if (is_file(DOC_ROOT.'db-structure.sql') && is_readable(DOC_ROOT.'db-structure.sql')):
-                    $sql = file_get_contents(DOC_ROOT.'db-structure.sql');
+                if (is_file(DOC_ROOT.'db-structure-'.DB_DRIVER.'.sql') && is_readable(DOC_ROOT.'db-structure-'.DB_DRIVER.'.sql')):
+                    $sql = file_get_contents(DOC_ROOT.'db-structure-'.DB_DRIVER.'.sql');
                     $queries = explode(";", trim(trim($sql), ";"));
                     if (!empty($queries)):
                         $error = false;
+                        $db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_DATABASE, DB_USERNAME, DB_PASSWORD);
+                        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
                         foreach ($queries as $q):
-                            if (!DB::query($q, false)):
+                            if ($db->exec($q) === false):
                                 $error = true;
                                 break;
                             endif;
@@ -25,7 +28,7 @@ root@kali:~# cd <?php echo DOC_ROOT; ?>
                             </pre>
                             <p>To execute necessary queries, execute following command:</p>
                             <pre class="shell">
-root@kali:<?php echo DOC_ROOT; ?># mysql -u <?php echo DB_USERNAME;?> -p <?php echo DB_DATABASE;?> < db-structure.sql
+root@kali:<?php echo DOC_ROOT; ?># mysql -u <?php echo DB_USERNAME;?> -p <?php echo DB_DATABASE;?> < db-structure-<?php echo DB_DRIVER; ?>.sql
 </pre>
                             <p>You will be asked for MySql password. Enter password and if all went well, refresh the page by clicking <a href=""><strong>here</strong></a>.</p>
                             <?php

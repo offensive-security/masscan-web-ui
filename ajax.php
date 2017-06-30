@@ -1,9 +1,14 @@
 <?php
 require dirname(__FILE__).'/config.php';
+require dirname(__FILE__).'/includes/functions.php';
 $ip = (int) $_GET['ip'];
 if ($ip > 0):
-	$q = "SELECT ip as ipaddress, port_id, service, protocol, banner, title FROM data WHERE ip =".(int) $ip." ORDER BY scanned_ts DESC";
-	$results = DB::fetchAll($q);
+	$db = getPdo();
+    $q = "SELECT ip as ipaddress, port_id, service, protocol, banner, title FROM data WHERE ip = :ip ORDER BY scanned_ts DESC";
+    $stmt = $db->prepare($q);
+    $stmt->bindParam(':ip', $ip, PDO::PARAM_INT);
+    $stmt->execute();
+	$results = $stmt->fetchAll();
 else:
 	$results = array();
 endif;

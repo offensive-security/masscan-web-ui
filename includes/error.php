@@ -6,10 +6,10 @@
                 <h1>Oops!</h1>
                 <h2>An error has occured.</h2>
                 <div class="alert alert-danger" role="alert">
-                    <p><?php echo $this->getMessage(); ?></p>
+                    <p><?php echo $pdoe->getMessage(); ?></p>
                 </div>
                 <?php
-                    if (preg_match('/^Database (.*) not found/', $this->getMessage(), $matches)):
+                    if (strpos($pdoe->getMessage(), 'Unknown database')):
                         include dirname(__FILE__).'/html/dbname-error-help.html';
                     endif;
                 ?>

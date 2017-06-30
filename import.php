@@ -5,6 +5,7 @@
 if (substr(php_sapi_name(), 0, 3) != 'cli'):
     die('This script can only be run from command line!');
 endif;
+include dirname(__FILE__).'/includes/functions.php';
 /**
  * Convert seconds to minutes, hours..
  * NOTICE : Approximate, assumes months have 30 days.
@@ -66,7 +67,7 @@ do {
 	$handle = fopen ("php://stdin","r");
 	$input = fgets($handle);
 } while (!in_array(trim($input), array('yes', 'no')));
-$db = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_DATABASE, DB_USERNAME, DB_PASSWORD);
+$db = getPdo();
 if (trim(strtolower($input)) == 'yes'):
 	echo PHP_EOL;
 	echo "Clearing the db";
@@ -86,18 +87,19 @@ $total		= 0;
 $inserted	= 0;
 echo "Processing data (This may take some time depending on file size)";
 echo PHP_EOL;
-$q = "INSERT INTO data (id, ip, port_id, scanned_ts, protocol, state, reason, reason_ttl, service, banner, title) VALUES (null, :ip, :port, :scanned_ts, :protocol, :state, :reason, :reason_ttl, :service, :banner, :title)";
+$q = "INSERT INTO data (ip, port_id, scanned_ts, protocol, state, reason, reason_ttl, service, banner, title) VALUES (:ip, :port, :scanned_ts, :protocol, :state, :reason, :reason_ttl, :service, :banner, :title)";
 $stmt = $db->prepare($q);
-$stmt->bindParam(':ip', $ip);
-$stmt->bindParam(':port', $port);
+$stmt->bindParam(':ip', $ip, PDO::PARAM_INT);
+$stmt->bindParam(':port', $port, PDO::PARAM_INT);
 $stmt->bindParam(':scanned_ts', $scanned_ts);
-$stmt->bindParam(':protocol', $protocol);
-$stmt->bindParam(':state', $state);
-$stmt->bindParam(':reason', $reason);
-$stmt->bindParam(':reason_ttl', $reason_ttl);
-$stmt->bindParam(':service', $service);
-$stmt->bindParam(':banner', $banner);
-$stmt->bindParam(':title', $title);
+$stmt->bindParam(':protocol', $protocol, PDO::PARAM_STR);
+$stmt->bindParam(':state', $state, PDO::PARAM_STR);
+$stmt->bindParam(':reason', $reason, PDO::PARAM_STR);
+$stmt->bindParam(':reason_ttl', $reason_ttl, PDO::PARAM_INT);
+$stmt->bindParam(':service', $service, PDO::PARAM_STR);
+$stmt->bindParam(':banner', $banner, PDO::PARAM_STR);
+$stmt->bindParam(':title', $title, PDO::PARAM_STR);
+
 foreach ($xml->host as $host):
 
     foreach ($host->ports as $p):
@@ -128,15 +130,20 @@ foreach ($xml->host as $host):
             $banner = '';
             $title = '';
         endif;
-        $state = (string) $p->port->state['state'];
-        $reason = (string) $p->port->state['reason'];
-        $reason_ttl = (string) $p->port->state['reason_ttl'];
+        $state      = (string) $p->port->state['state'];
+        $reason     = (string) $p->port->state['reason'];
+        $reason_ttl = (int) $p->port->state['reason_ttl'];
         $total++;
         if ($stmt->execute()):
             $inserted++;
         endif;
 	endforeach;
+
 endforeach;
+if (DB_DRIVER == 'pgsql') {
+    $q = "UPDATE data SET searchtext = to_tsvector('english', title || '' || banner || '' || service || '' || protocol || '' || port_id)";
+    $db->exec($q);
+}
 $end_ts = time();
 echo PHP_EOL;
 echo "Summary:";

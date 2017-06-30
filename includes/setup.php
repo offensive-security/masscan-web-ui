@@ -23,19 +23,21 @@ root@kali:~# sudo apt-get install php-xml
 <pre class="shell">
 root@kali:~# cd <?php echo DOC_ROOT;?>
 </pre>
-                    <p>Edit config.php and update the file with MySql host, user, password and database information. Type:</p>
+                    <p>Edit config.php and update the file. Select database (mysql for Mysql or pgsql for PostgreSQL) and provide MySql/PostgreSQL host, user, password and database information. Type:</p>
 <pre class="shell">
 root@kali:<?php echo DOC_ROOT;?># nano config.php
 </pre>
                     <p>and change the default values if necessary:</p>
 <pre>
+define('DB_DRIVER',     '<?php echo DB_DRIVER;?>');
 define('DB_HOST',       '<?php echo DB_HOST;?>');
 define('DB_USERNAME',	'<?php echo DB_USERNAME;?>');
 define('DB_PASSWORD', 	'<?php echo DB_PASSWORD;?>');
 define('DB_DATABASE', 	'<?php echo DB_DATABASE;?>');
 </pre>
                     <p class="alert alert-info">If you change default database params in config.php before you continue with setup, in order for the changes to take effect refresh this page (press F5 or click <a href="./">here</a>) and you will have updated all commands later in this page.</p>
-                    <p>Next step is to login to MySql as root by executing following command:</p>
+                    <p>Next step is to login to MySql/PostgreSQL and create the database.</p>
+                    <p>For MySQL do the following:</p>
 <pre class="shell">
 root@kali:<?php echo DOC_ROOT;?># mysql -u root -p
 Enter password:
