@@ -26,7 +26,7 @@ function getPdo()
             echo $pdoe->getMessage();
             die;
         endif;
-        if (strpos($pdoe->getMessage(), 'Access denied for user') || strpos($pdoe->getMessage(), ' getaddrinfo failed') || strpos($pdoe->getMessage(), 'not find driver')):
+        if (strpos($pdoe->getMessage(), 'Access denied for user') || strpos($pdoe->getMessage(), ' getaddrinfo failed') || strpos($pdoe->getMessage(), 'not find driver') || strpos($pdoe->getMessage(), 'does not exist')):
             include DOC_ROOT.'includes/setup.php';
         else:
             include DOC_ROOT.'includes/error.php';

@@ -2,7 +2,7 @@
 /**
  * Some general settings
  */
-date_default_timezone_set('Europe/Belgrade');
+date_default_timezone_set('UTC');
 set_time_limit(0);
 ini_set("memory_limit","-1");
 /**
