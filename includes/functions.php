@@ -13,7 +13,7 @@ function getPdo()
         try {
             $q = "SELECT 1 FROM data";
             $stmt = $db->query($q);
-            $tmp = $stmt->fetch($q);
+            $tmp = $stmt->fetch(intval($q));
             return $db;
         }
         catch (PDOException $pdoe) {
